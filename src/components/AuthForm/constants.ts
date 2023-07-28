@@ -74,12 +74,12 @@ export const fieldFormData: FieldConfigGenerator = ({ register, errors }) => [
     errors,
     rules: {
       required: "Password required!",
-      pattern: {
-        value:
-          /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
-        message:
-          "Password must be at least 8 characters and contain alphanumeric and special characters",
-      },
+      // pattern: {
+      //   value:
+      //     /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
+      //   message:
+      //     "Password must be at least 8 characters and contain alphanumeric and special characters",
+      // },
     },
     type: "password",
   },

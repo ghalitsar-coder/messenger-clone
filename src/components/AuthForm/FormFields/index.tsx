@@ -15,7 +15,7 @@ const FormFields = ({ page, errors, register }: IFormFields) => {
     <TextField key={field.name} {...field} />
   ));
 
-  if (page === "REGISTER") {
+  if (page === "LOGIN") {
     const formDataCopy = fieldFormData({ register, errors }).slice();
     formDataCopy.splice(1, 1);
     return formDataCopy.map((field) => (
