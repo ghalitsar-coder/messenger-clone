@@ -5,13 +5,9 @@ import prisma from "@/lib/prismadb";
 export async function POST(request: Request) {
   try {
     const { email, name, password } = await request.json();
-    console.log(`THIS IS   password:`, password);
-    console.log(`THIS IS   name:`, name);
-    console.log(`THIS IS   email:`, email);
     if (!email || !password || !name) {
       return new NextResponse("Missing Credentials", { status: 400 });
     }
-
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await prisma.user.create({
       data: {
@@ -20,6 +16,7 @@ export async function POST(request: Request) {
         hashedPassword,
       },
     });
+    console.log(`THIS IS   user:`, user);
     return NextResponse.json(user);
   } catch (err) {
     console.log(err, "REGISTRATION_ERROR");

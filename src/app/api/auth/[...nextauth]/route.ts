@@ -7,16 +7,30 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/lib/prismadb";
 
+interface ErrorFields {
+  [key: string]: string | undefined;
+}
+
+export class AuthenticationError extends Error {
+  errorFields: ErrorFields;
+
+  constructor(message: string, errorFields: ErrorFields) {
+    super(message);
+    this.name = "AuthenticationError";
+    this.errorFields = errorFields;
+  }
+}
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
       name: "credentials",
@@ -27,7 +41,11 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         const { email, password } = credentials || {};
         if (!email || !password) {
-          throw new Error("Invalid Credentials!");
+          const errorFields: ErrorFields = {
+            email: !email ? "Invalid Email" : undefined,
+            password: !password ? "Invalid Password" : undefined,
+          };
+          throw new AuthenticationError("Invalid Credentials", errorFields);
         }
         const user = await prisma.user.findUnique({
           where: {
@@ -35,15 +53,26 @@ export const authOptions: AuthOptions = {
           },
         });
         if (!user || !user.hashedPassword) {
-          throw new Error("Invalid User! ");
+          const errorFields: ErrorFields = {
+            email: "Email is not found ",
+            password: "Password is not found",
+          };
+          throw new AuthenticationError("User not aa found!", errorFields);
         }
+
         const isCorrectPassword = await bcrypt.compare(
           password,
           user.hashedPassword
         );
+
         if (!isCorrectPassword) {
-          throw new Error("Invalid Password!");
+          const errorFields = {
+            password: "password is not match",
+          };
+          throw new AuthenticationError("Password is not match!", errorFields);
         }
+        console.log(`THIS IS   user:`, user)
+
         return user;
       },
     }),

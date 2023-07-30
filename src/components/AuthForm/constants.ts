@@ -3,6 +3,7 @@ import {
   FieldValues,
   RegisterOptions,
   UseFormRegister,
+  UseFormSetError,
 } from "react-hook-form";
 
 export type PAGE_AUTH = "LOGIN" | "REGISTER";
@@ -34,6 +35,11 @@ export interface IFieldFormData
 }
 
 type FieldConfigGenerator = (props: IFieldFormDataProps) => IFieldFormData[];
+
+interface OnErrorAuthProps {
+  setError: UseFormSetError<FieldValues>;
+  page: PAGE_AUTH;
+}
 
 export const fieldFormData: FieldConfigGenerator = ({ register, errors }) => [
   {
@@ -89,4 +95,18 @@ export const defaultValues: IDefaultValues = {
   name: "",
   email: "",
   password: "",
+};
+
+export const onErrorAuth = ({ setError, page }: OnErrorAuthProps) => {
+  const { name, ...rest } = defaultValues;
+  const newKeys = {
+    LOGIN: rest,
+    REGISTER: { name, ...rest },
+  };
+  Object.keys(newKeys[page]).forEach((key) => {
+    setError(key, {
+      type: "Error From server",
+      message: "Invalid Credentials",
+    });
+  });
 };
