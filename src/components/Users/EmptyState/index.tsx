@@ -5,7 +5,6 @@ import { useSession, signIn, signOut } from "next-auth/react"
 
 const EmptyState = () => {
   const session = useSession();
-  console.log(`THIS IS   session:`, session)
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-8 h-full flex items-center justify-center bg-gray-100 ">

@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { IconType } from "react-icons";
 
 export interface MobileAndDesktopItemProps {
@@ -6,4 +7,8 @@ export interface MobileAndDesktopItemProps {
   icon: IconType;
   active?: boolean;
   onClick?(): void;
+}
+
+export interface CurrentUserProps {
+  currentUser: User;
 }

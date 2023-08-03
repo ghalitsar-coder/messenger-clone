@@ -16,10 +16,8 @@ export async function POST(request: Request) {
         hashedPassword,
       },
     });
-    console.log(`THIS IS   user:`, user);
     return NextResponse.json(user);
   } catch (err) {
-    console.log(err, "REGISTRATION_ERROR");
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -1,4 +1,6 @@
 import Sidebar from "@/components/Users/Sidebar";
+import UserLists from "@/components/Users/UserLists";
+import getUsers from "@/utils/actions/getUsers";
 import React from "react";
 
 interface UserLayoutProps {
@@ -6,9 +8,12 @@ interface UserLayoutProps {
 }
 
 const UserLayout = async ({ children }: UserLayoutProps) => {
+  const users = await getUsers()
   return (
     <Sidebar>
-      <div className="h-full" >{children}</div>
+      <div className="h-full" >
+        <UserLists users={users} />
+        {children}</div>
     </Sidebar>
   );
 };

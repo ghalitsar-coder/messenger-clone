@@ -15,7 +15,6 @@ import SocialSignIn from "./SocialSignIn";
 function AuthForm() {
   const [page, setPage] = useState<PAGE_AUTH>("LOGIN");
   const session = useSession();
-  console.log(`THIS IS   session:`, session);
   const router = useRouter();
 
   const {
@@ -36,7 +35,7 @@ function AuthForm() {
         router.push("/users");
         clearErrors();
       },
-      onError: onErrorAuth({ setError, page }),
+      onError:() => onErrorAuth({ setError, page }),
     };
     if (page === "REGISTER") {
       await postRegister(newData);

@@ -40,6 +40,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         const { email, password } = credentials || {};
+        
         if (!email || !password) {
           const errorFields: ErrorFields = {
             email: !email ? "Invalid Email" : undefined,
@@ -47,6 +48,7 @@ export const authOptions: AuthOptions = {
           };
           throw new AuthenticationError("Invalid Credentials", errorFields);
         }
+
         const user = await prisma.user.findUnique({
           where: {
             email,
@@ -71,7 +73,6 @@ export const authOptions: AuthOptions = {
           };
           throw new AuthenticationError("Password is not match!", errorFields);
         }
-        console.log(`THIS IS   user:`, user)
 
         return user;
       },

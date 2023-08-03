@@ -8,13 +8,14 @@ import toast from "react-hot-toast";
 export const postRegister = async ({
   data,
   onSuccess,
+  onError,
 }: PostRegister | FieldValues) => {
   try {
     await axios.post("/api/register", data);
     await postSignIn({ data, onSuccess });
   } catch (err: unknown | any) {
-    console.log(`THIS IS postRegister  err:`, err);
-    toast.error("Something went wrong", err);
+    onError();
+    toast.error("Invalid credentials");
     return err;
   }
 };
@@ -24,25 +25,19 @@ export const postSignIn = async ({
   onSuccess,
   onError,
 }: PostSignIn | FieldValues) => {
-  try {
-    const response = await signIn("credentials", {
-      ...data,
-      redirect: false,
-    });
-    console.log(`THIS IS   response:`, response);
-    if (response?.error) {
-      onError();
-      toast.error("Invalid credentials");
-    }
-    if (response?.ok && !response?.error) {
-      toast.success("Success Logged In");
-      onSuccess();
-    }
-    return response;
-  } catch (err) {
-    console.log(`THIS IS postSignIn  err:`, err);
-    return err;
+  const response = await signIn("credentials", {
+    ...data,
+    redirect: false,
+  });
+  if (response?.error) {
+    onError();
+    toast.error("Invalid credentials");
   }
+  if (response?.ok && !response?.error) {
+    toast.success("Success Logged In");
+    onSuccess();
+  }
+  return response;
 };
 // {
 //   "message": "Request failed with status code 400",
