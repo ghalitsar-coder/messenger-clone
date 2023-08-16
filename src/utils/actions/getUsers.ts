@@ -1,7 +1,5 @@
-import React from "react";
 import getSession from "./getSession";
 import prisma from "@/lib/prismadb";
-import toast from "react-hot-toast";
 
 const getUsers = async () => {
   const session = await getSession();
@@ -23,7 +21,6 @@ const getUsers = async () => {
     });
     return users;
   } catch (err) {
-    toast.error("Users is not available");
     return [];
   }
 };
