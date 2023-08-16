@@ -3,13 +3,17 @@
 import { cn } from "@/lib/utils";
 import { MobileAndDesktopItemProps } from "@/types/components/DesktopItem";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const MobileItem = (props: MobileAndDesktopItemProps) => {
   const { active, href, icon: Icon, onClick } = props;
+  const router = useRouter();
   const handleClick = () => {
     if (onClick) {
       onClick();
+    } else {
+      router.push(href);
     }
   };
   return (
@@ -20,9 +24,7 @@ const MobileItem = (props: MobileAndDesktopItemProps) => {
       )}
       onClick={handleClick}
     >
-      <Link href={href}>
-        <Icon />
-      </Link>
+      <Icon />
     </button>
   );
 };

@@ -28,10 +28,10 @@ export interface IFieldConfig
 export interface IFieldFormData
   extends React.InputHTMLAttributes<HTMLInputElement>,
     IFieldFormDataProps {
-  name: keyof IDefaultValues;
-  label: string;
-  placeholder: string;
-  rules: RegisterOptions;
+  name: string;
+  label?: string;
+  placeholder?: string;
+  rules?: RegisterOptions;
 }
 
 type FieldConfigGenerator = (props: IFieldFormDataProps) => IFieldFormData[];

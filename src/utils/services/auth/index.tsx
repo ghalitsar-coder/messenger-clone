@@ -1,3 +1,4 @@
+import api from "@/context/AxiosContext";
 import { CustomError } from "@/types/components/ErrorFromServer";
 import { PostRegister, PostSignIn } from "@/types/pages/Auth";
 import axios from "axios";
@@ -11,7 +12,7 @@ export const postRegister = async ({
   onError,
 }: PostRegister | FieldValues) => {
   try {
-    await axios.post("/api/register", data);
+    await api.post("/register", data);
     await postSignIn({ data, onSuccess });
   } catch (err: unknown | any) {
     onError();

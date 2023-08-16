@@ -11,9 +11,11 @@ interface IFormFields {
 
 // eslint-disable-next-line react/display-name
 const FormFields = ({ page, errors, register }: IFormFields) => {
-  let formFields = fieldFormData({ register, errors }).map((field) => (
-    <TextField key={field.name} {...field} />
-  ));
+  if (page === "REGISTER") {
+    return fieldFormData({ register, errors }).map((field) => (
+      <TextField key={field.name} {...field} />
+    ));
+  }
 
   if (page === "LOGIN") {
     const formDataCopy = fieldFormData({ register, errors }).slice();
@@ -22,8 +24,6 @@ const FormFields = ({ page, errors, register }: IFormFields) => {
       <TextField key={field.name} {...field} />
     ));
   }
-
-  return formFields;
 };
 
 export default FormFields;

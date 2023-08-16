@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Users = () => {
   return (
-    <div className="hidden lg:block lg:pl-80 h-full bg-red-300">
+    <div className="hidden lg:block lg:pl-80 h-full ">
       <EmptyState />
     </div>
   );

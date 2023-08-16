@@ -12,7 +12,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
-  rules: RegisterOptions;
+  rules?: RegisterOptions;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
