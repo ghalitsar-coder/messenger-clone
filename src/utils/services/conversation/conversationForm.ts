@@ -4,7 +4,7 @@ import {
   UploadImageProps,
 } from "@/types/components/ConversationForm";
 import axios from "axios";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export const sendMessage = async (params: SendMessageProps) => {
   const { data } = params;
