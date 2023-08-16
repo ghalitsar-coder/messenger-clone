@@ -4,7 +4,6 @@ import { PostRegister, PostSignIn } from "@/types/pages/Auth";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { FieldValues } from "react-hook-form";
-import toast from "react-hot-toast";
 
 export const postRegister = async ({
   data,
@@ -16,7 +15,7 @@ export const postRegister = async ({
     await postSignIn({ data, onSuccess });
   } catch (err: unknown | any) {
     onError();
-    toast.error("Invalid credentials");
+    // toast.error("Invalid credentials");
     return err;
   }
 };
@@ -32,10 +31,10 @@ export const postSignIn = async ({
   });
   if (response?.error) {
     onError();
-    toast.error("Invalid credentials");
+    // toast.error("Invalid credentials");
   }
   if (response?.ok && !response?.error) {
-    toast.success("Success Logged In");
+    // toast.success("Success Logged In");
     onSuccess();
   }
   return response;

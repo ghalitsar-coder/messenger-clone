@@ -1,7 +1,6 @@
 import api from "@/context/AxiosContext";
 import { AxiosResponse } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import toast from "react-hot-toast";
 
 interface CreateConversationProps {
   userId?: string;
@@ -17,7 +16,7 @@ export const createConversation = async (props: CreateConversationProps) => {
     const response = await api.post("/conversations", { ...data });
     onSuccess(response);
   } catch (err: any) {
-    toast.error("Something went wrong when creating conversation");
+    
     console.error("THIS IS ERROR ->", err?.message);
   }
 };

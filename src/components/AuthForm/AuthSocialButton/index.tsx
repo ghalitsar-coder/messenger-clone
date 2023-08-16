@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import React from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
 const AuthSocialButton = () => {
@@ -10,14 +10,14 @@ const AuthSocialButton = () => {
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) {
-          toast.error("Invalid Credentials");
+          // toast.error("Invalid Credentials");
         }
         if (callback?.ok && !callback?.error) {
-          toast.success(`Success sign in with ${action}`);
+          // toast.success(`Success sign in with ${action}`);
         }
       })
       .catch((err) => {
-        toast.error(`Login with ${action} is failed `);
+        // toast.error(`Login with ${action} is failed `);
       });
   };
   return (
