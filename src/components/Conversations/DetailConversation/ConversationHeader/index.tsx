@@ -26,6 +26,7 @@ const ConversationHeader: React.FC<ConversationHeaderProps> = (props) => {
   const { isOpen, onOpen } = useProfileDrawer();
   const router = useRouter();
   const { members } = useActiveList();
+  console.log(`THIS IS   members:`, members)
   const isActive = members.indexOf(otherUser?.email as never) !== -1;
 
   const statusText = useMemo(() => {
