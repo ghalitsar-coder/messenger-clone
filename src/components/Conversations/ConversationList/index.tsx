@@ -11,7 +11,6 @@ import useConversation from "@/utils/hooks/useConversation";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import ConversationBox from "./ConversationBox";
 import useAddConversation from "@/utils/hooks/useAddConversation";
-import useDeleteModal from "@/utils/hooks/useDeleteModal";
 import { useSession } from "next-auth/react";
 import { pusherClient } from "@/lib/pusher";
 import { find } from "lodash";
@@ -21,7 +20,6 @@ const ConversationList: React.FC<ConversationListProps> = (props) => {
 
   const [items, setItems] = useState(initialItems);
   const { onOpen, getUsers } = useAddConversation();
-  const { isSuccess, onReset } = useDeleteModal();
   const session = useSession();
   const router = useRouter();
 
